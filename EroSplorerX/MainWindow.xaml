@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<winuiex:WindowEx
+    x:Class="EroSplorerX.MainWindow"
+    xmlns:winuiex="using:WinUIEx"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EroSplorerX"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:collections="using:EroSplorerX.Data.Collections" 
+    xmlns:data="using:EroSplorerX.Data" 
+    xmlns:converters="using:EroSplorerX.Converters" 
+    xmlns:views="using:EroSplorerX.Views"
+    Title="EroSplorer X"
+    mc:Ignorable="d" Width="1550" Height="720">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="AppTitleBar" Grid.Row="0" VerticalAlignment="Top"
+                Margin="10, 0, 0, 0">
+            <TextBlock x:Name="AppTitle" Text="EroSplorer X" VerticalAlignment="Top" Margin="0,8,0,0" />
+        </Border>
+
+        <views:MainPage Grid.Row="1" x:Name="MainPage"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+</winuiex:WindowEx>

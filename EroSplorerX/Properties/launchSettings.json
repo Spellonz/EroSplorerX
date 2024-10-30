@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EroSplorerX (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EroSplorerX (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
