@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using WinUIEx;
 
 namespace EroSplorerX.Views;
 
@@ -57,5 +58,15 @@ public sealed partial class ItemsPanelView : UserControl
         var pathData = (sender as MenuFlyoutItem);
         var path = pathData.Tag.ToString();
         Process.Start("explorer.exe", path);
+    }
+
+    private void Play_Click(object sender, RoutedEventArgs e)
+    {
+        var pathData = (sender as MenuFlyoutItem);
+        var path = pathData.Tag.ToString();
+
+        var newPlayer = new VideoPlayerWindow();
+        newPlayer.SetVideoPath(path);
+        newPlayer.Show();
     }
 }

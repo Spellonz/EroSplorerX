@@ -30,11 +30,17 @@
                         Width="302" Height="170" Stretch="UniformToFill">
                         <Image.ContextFlyout>
                             <MenuFlyout>
+                                <MenuFlyoutItem Text="Play" Tag="{Binding FullPath}" Click="Play_Click" />
                                 <MenuFlyoutItem Text="Open in Explorer" Tag="{Binding FullPath}" Click="ShowEroPathInExplorer_Click" />
                             </MenuFlyout>
                         </Image.ContextFlyout>
                     </Image>
+                    <!-- Video Length -->
+                    <Border Grid.Row="0" Background="Black" Opacity="0.75" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="1" Padding="3">
+                        <TextBlock Text="{Binding VideoLength}" Foreground="White" FontWeight="Bold" FontSize="14" />
+                    </Border>
 
+                    <!-- Heatmap -->
                     <Image Grid.Row="1" Source="{Binding HeatmapPath, Converter={StaticResource HeatmapPathConverter}}"
                            Width="302" Height="20" Margin="0,-5, 0, 0"/>
 

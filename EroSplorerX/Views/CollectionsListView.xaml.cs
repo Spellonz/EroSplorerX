@@ -74,6 +74,7 @@ public sealed partial class CollectionsListView : UserControl
         if ((sender as FrameworkElement)?.DataContext is CollectionData item)
         {
             var newPath = new EroPath(item.Path);
+
             var scripts = newPath.GetFunscripts();
             MainPageRef.ShowSuccessInfoBar($"Loaded {scripts.Count} scripts from {item.Name}.", SystemConstants.INFOBAR_DURATION_VERY_SHORT);
 
