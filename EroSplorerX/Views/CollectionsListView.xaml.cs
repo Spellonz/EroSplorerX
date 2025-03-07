@@ -1,5 +1,4 @@
 using EroSplorerX.Data;
-using EroSplorerX.Data.Collections;
 using EroSplorerX.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -9,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using Windows.Storage.Pickers;
 using Windows.Storage;
+using EroSplorerX.Data.DTO;
 
 namespace EroSplorerX.Views;
 
@@ -29,8 +29,8 @@ public sealed partial class CollectionsListView : UserControl
     }
 
 
-    private ObservableCollection<CollectionData> collections { get; set; } = [];
-    public ObservableCollection<CollectionData> Collections
+    private ObservableCollection<EsxCollection> collections { get; set; } = [];
+    public ObservableCollection<EsxCollection> Collections
     {
         get => collections;
         set => collections = value;
@@ -48,7 +48,7 @@ public sealed partial class CollectionsListView : UserControl
         Collections.Clear();
 
         // Add collections to the tree view
-        foreach (var collection in CollectionsHelper.GetCollections().OrderBy(m => m.Name))
+        foreach (var collection in DatabaseHelper.GetCollections().OrderBy(m => m.Name))
         {
             var tag = collection.Name;
             collection.Tag = tag;
@@ -58,7 +58,7 @@ public sealed partial class CollectionsListView : UserControl
             // If the tag includes a '/', the converter will indent it.
             if (collection.ShowChildren)
             {
-                var children = CollectionsHelper.GetChildren(collection).OrderBy(m => m.Name);
+                var children = DatabaseHelper.GetCollectionChildren(collection).OrderBy(m => m.Name);
                 foreach (var child in children)
                     Collections.Add(child);
             }
@@ -71,7 +71,7 @@ public sealed partial class CollectionsListView : UserControl
     /// <param name="sender">The collection that was double clicked</param>
     private void Collection_DoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is CollectionData item)
+        if ((sender as FrameworkElement)?.DataContext is EsxCollection item)
         {
             var newPath = new EroPath(item.Path);
 
@@ -99,12 +99,12 @@ public sealed partial class CollectionsListView : UserControl
         if (folder == null)
             return;
 
-        var newCollection = new CollectionData
+        var newCollection = new EsxCollection
         {
             Name = folder.DisplayName,
             Path = folder.Path
         };
-        CollectionsHelper.AddCollection(newCollection);
+        DatabaseHelper.AddCollection(newCollection);
 
         ShowCollections();
     }
@@ -142,10 +142,10 @@ public sealed partial class CollectionsListView : UserControl
         if (result == ContentDialogResult.Primary)
         {
             var item = Collections.FirstOrDefault(x => x.Tag == tag);
-            CollectionsHelper.RemoveCollection(item);
+            DatabaseHelper.RemoveCollection(item.Id);
 
             Collections.Remove(item);
-            CollectionsHelper.RemoveCollection(item);
+            DatabaseHelper.RemoveCollection(item.Id);
 
             MainPageRef.ShowSuccessInfoBar("Collection deleted successfully.");
         }
@@ -173,7 +173,7 @@ public sealed partial class CollectionsListView : UserControl
             return;
         }
         collection.ShowChildren = ((ToggleMenuFlyoutItem)sender).IsChecked;
-        CollectionsHelper.UpdateCollection(collection);
+        DatabaseHelper.UpdateCollection(collection);
 
         ShowCollections();
     }

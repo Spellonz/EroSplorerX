@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EroSplorerX.Data.Collections;
+namespace EroSplorerX.Data.DTO;
 
-public class CollectionData
+public class EsxCollection
 {
+    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Path { get; set; } = string.Empty;
     public bool ShowChildren { get; set; } = false;
