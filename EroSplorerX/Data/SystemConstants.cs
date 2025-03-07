@@ -6,10 +6,8 @@ namespace EroSplorerX.Data;
 
 internal static class SystemConstants
 {
-    public static readonly string APP_PATH = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    public static readonly string APP_PATH = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
     public static readonly string APP_DATA_PATH = Path.Combine(APP_PATH, "Data");
-    public static readonly string COLLECTIONS_PATH = Path.Combine(APP_DATA_PATH, "collections.json");
-    public static readonly string TIMES_PATH = Path.Combine(APP_DATA_PATH, "times.dat");
 
     public static readonly string DEFAULT_THUMBNAIL_PATH = Path.Combine(APP_DATA_PATH, "NoPreview.gif");
     public static readonly string DEFAULT_HEATMAP_PATH = Path.Combine(APP_DATA_PATH, "NoHeatmap.png");

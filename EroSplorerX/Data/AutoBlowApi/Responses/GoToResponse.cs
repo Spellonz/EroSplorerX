@@ -4,6 +4,6 @@ namespace EroSplorerX.Data.AutoBlowApi.Responses;
 
 public class GoToResponse
 {
-    [JsonProperty("")]
-    public bool success { get; set; }
+    [JsonProperty("success")]
+    public bool Success { get; set; }
 }

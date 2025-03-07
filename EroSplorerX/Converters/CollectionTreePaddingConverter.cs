@@ -8,7 +8,7 @@ public class CollectionTreePaddingConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        if (value is string && (value as string).Contains('/'))
+        if (value is string v && v.Contains('/'))
             return new Thickness(20, 0, 0, 0);
 
         return new Thickness(5, 0, 0, 0);

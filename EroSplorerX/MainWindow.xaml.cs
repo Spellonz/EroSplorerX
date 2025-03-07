@@ -8,9 +8,9 @@ namespace EroSplorerX;
 
 public sealed partial class MainWindow : WindowEx
 {
-    WindowsSystemDispatcherQueueHelper m_wsdqHelper;
-    MicaController m_backdropController;
-    SystemBackdropConfiguration m_configurationSource;
+    WindowsSystemDispatcherQueueHelper? m_wsdqHelper;
+    MicaController? m_backdropController;
+    SystemBackdropConfiguration? m_configurationSource;
 
     public MainWindow()
     {
@@ -51,7 +51,7 @@ public sealed partial class MainWindow : WindowEx
 
     private void Window_Activated(object sender, WindowActivatedEventArgs args)
     {
-        m_configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
+        m_configurationSource!.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
     }
 
     private void Window_Closed(object sender, WindowEventArgs args)
@@ -79,9 +79,15 @@ public sealed partial class MainWindow : WindowEx
     {
         switch (((FrameworkElement)this.Content).ActualTheme)
         {
-            case ElementTheme.Dark: m_configurationSource.Theme = Microsoft.UI.Composition.SystemBackdrops.SystemBackdropTheme.Dark; break;
-            case ElementTheme.Light: m_configurationSource.Theme = Microsoft.UI.Composition.SystemBackdrops.SystemBackdropTheme.Light; break;
-            case ElementTheme.Default: m_configurationSource.Theme = Microsoft.UI.Composition.SystemBackdrops.SystemBackdropTheme.Default; break;
+            case ElementTheme.Dark: 
+                m_configurationSource!.Theme = SystemBackdropTheme.Dark; 
+                break;
+            case ElementTheme.Light: 
+                m_configurationSource!.Theme = SystemBackdropTheme.Light; 
+                break;
+            case ElementTheme.Default: 
+                m_configurationSource!.Theme = SystemBackdropTheme.Default; 
+                break;
         }
     }
 }

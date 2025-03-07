@@ -56,14 +56,21 @@ public sealed partial class ItemsPanelView : UserControl
     private void ShowEroPathInExplorer_Click(object sender, RoutedEventArgs e)
     {
         var pathData = (sender as MenuFlyoutItem);
+        if (pathData == null) return;
+
         var path = pathData.Tag.ToString();
+        if (string.IsNullOrEmpty(path)) return;
+
         Process.Start("explorer.exe", path);
     }
 
     private void Play_Click(object sender, RoutedEventArgs e)
     {
         var pathData = (sender as MenuFlyoutItem);
+        if (pathData == null) return;
+
         var path = pathData.Tag.ToString();
+        if (string.IsNullOrEmpty(path)) return;
 
         var newPlayer = new VideoPlayerWindow();
         newPlayer.SetVideoPath(path);

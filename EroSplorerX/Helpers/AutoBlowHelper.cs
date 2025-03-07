@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using Serilog;
 
 namespace EroSplorerX.Helpers;
 
@@ -29,10 +30,11 @@ public class AutoBlowHelper
     public static async Task<ConnectedResponse?> Connected(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/connected";
 
         try
         {
-            var response = await client.GetAsync($"{BASE_URL}/connected");
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -40,7 +42,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -52,10 +54,11 @@ public class AutoBlowHelper
     public static async Task<InfoResponse?> Info(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/info";
 
         try
         {
-            var response = await client.GetAsync($"{BASE_URL}/info");
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -63,7 +66,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -75,10 +78,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> State(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/state";
 
         try
         {
-            var response = await client.GetAsync($"{BASE_URL}/state");
+            var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -86,7 +90,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -102,6 +106,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> Oscillate(string deviceToken, int speed, int minY, int maxY)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/oscillate";
 
         try
         {
@@ -109,7 +114,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/oscillate", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -117,7 +122,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -129,10 +134,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> OscillateStart(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/oscillate/start";
 
         try
         {
-            var response = await client.PutAsync($"{BASE_URL}/oscillate/start", null);
+            var response = await client.PutAsync(url, null);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -140,7 +146,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -152,10 +158,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> OscillateStop(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/oscillate/stop";
 
         try
         {
-            var response = await client.PutAsync($"{BASE_URL}/oscillate/stop", null);
+            var response = await client.PutAsync(url, null);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -163,7 +170,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -177,6 +184,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptStart(string deviceToken, double startTimeMs)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/start";
 
         try
         {
@@ -184,7 +192,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/start", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -192,7 +200,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -204,10 +212,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptStop(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/stop";
 
         try
         {
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/stop", null);
+            var response = await client.PutAsync(url, null);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -215,7 +224,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -228,6 +237,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptLoadToken(string deviceToken, string scriptToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/load-token";
 
         try
         {
@@ -235,7 +245,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/load-token", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -243,7 +253,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -259,6 +269,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptUploadFunscript(string deviceToken, byte[] file)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/upload-funscript";
 
         try
         {
@@ -267,7 +278,7 @@ public class AutoBlowHelper
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/json");
             multipartContent.Add(fileContent, "file", "funscript.funscript");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/upload-funscript", multipartContent);
+            var response = await client.PutAsync(url, multipartContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -275,7 +286,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -291,6 +302,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptUploadCsv(string deviceToken, byte[] file)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/upload-csv-file";
 
         try
         {
@@ -299,7 +311,7 @@ public class AutoBlowHelper
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
             multipartContent.Add(fileContent, "file", "funscript.csv");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/upload-csv-file", multipartContent);
+            var response = await client.PutAsync(url, multipartContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -307,7 +319,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -323,6 +335,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptUploadFunscriptUrl(string deviceToken, string url)
     {
         var client = GetClient(deviceToken);
+        var httpUrl = $"{BASE_URL}/sync-script/upload-funscript-url";
 
         try
         {
@@ -330,7 +343,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/upload-funscript-url", sContent);
+            var response = await client.PutAsync(httpUrl, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -338,7 +351,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", httpUrl);
             return null;
         }
     }
@@ -354,6 +367,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptUploadCsvUrl(string deviceToken, string url)
     {
         var client = GetClient(deviceToken);
+        var httpUrl = $"{BASE_URL}/sync-script/upload-csv-url";
 
         try
         {
@@ -361,7 +375,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/upload-csv-url", sContent);
+            var response = await client.PutAsync(httpUrl, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -369,7 +383,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", httpUrl);
             return null;
         }
     }
@@ -383,6 +397,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptOffset(string deviceToken, int offsetTimeMs)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/offset";
 
         try
         {
@@ -390,7 +405,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/offset", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -398,7 +413,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -411,6 +426,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> SyncScriptLoop(string deviceToken, bool loop)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/sync-script/loop";
 
         try
         {
@@ -418,7 +434,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/sync-script/loop", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -426,7 +442,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -440,6 +456,7 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> LocalScript(string deviceToken, int localScriptIndex, int speed)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/local-script";
 
         try
         {
@@ -447,7 +464,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/local-script", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -455,7 +472,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -467,10 +484,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> LocalScriptStart(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/local-script/start";
 
         try
         {
-            var response = await client.PutAsync($"{BASE_URL}/local-script/start", null);
+            var response = await client.PutAsync(url, null);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -478,7 +496,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -490,10 +508,11 @@ public class AutoBlowHelper
     public static async Task<StateResponse?> LocalScriptStop(string deviceToken)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/local-script/stop";
 
         try
         {
-            var response = await client.PutAsync($"{BASE_URL}/local-script/stop", null);
+            var response = await client.PutAsync(url, null);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -501,7 +520,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }
@@ -515,6 +534,7 @@ public class AutoBlowHelper
     public static async Task<GoToResponse?> GoTo(string deviceToken, int position, int speed)
     {
         var client = GetClient(deviceToken);
+        var url = $"{BASE_URL}/goto";
 
         try
         {
@@ -522,7 +542,7 @@ public class AutoBlowHelper
             var jsonBody = JsonConvert.SerializeObject(body);
             var sContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BASE_URL}/goto", sContent);
+            var response = await client.PutAsync(url, sContent);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
@@ -530,7 +550,7 @@ public class AutoBlowHelper
         }
         catch (Exception ex)
         {
-            //_logger.LogError(ex, "Error connecting to AutoBlow API");
+            Log.Error(ex, "Error connecting to AutoBlow API at {url}", url);
             return null;
         }
     }

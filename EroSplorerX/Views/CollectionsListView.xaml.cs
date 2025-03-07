@@ -120,6 +120,8 @@ public sealed partial class CollectionsListView : UserControl
             return;
 
         var tag = collectionData.Tag.ToString();
+        if (string.IsNullOrEmpty(tag))
+            return;
 
         // Cannot delete child collections directly
         if (tag.Contains('/'))
@@ -142,7 +144,8 @@ public sealed partial class CollectionsListView : UserControl
         if (result == ContentDialogResult.Primary)
         {
             var item = Collections.FirstOrDefault(x => x.Tag == tag);
-            DatabaseHelper.RemoveCollection(item.Id);
+            if (item == null)
+                return;
 
             Collections.Remove(item);
             DatabaseHelper.RemoveCollection(item.Id);
@@ -158,15 +161,22 @@ public sealed partial class CollectionsListView : UserControl
     private void ShowCollectionInExplorer_Click(object sender, RoutedEventArgs e)
     {
         var collectionData = (sender as MenuFlyoutItem);
+        if (collectionData == null) return;
+
         var path = collectionData.Tag.ToString();
+        if (string.IsNullOrEmpty(path)) return;
+
         Process.Start("explorer.exe", path);
     }
 
     private void ToggleShowChildren_Click(object sender, RoutedEventArgs e)
     {
         var collectionData = (sender as MenuFlyoutItem);
+        if (collectionData == null) return;
+
         var collection = Collections.FirstOrDefault(x => x.Path == collectionData.Tag.ToString());
-        
+        if (collection == null) return;
+
         if (collection.Tag.Contains('/'))
         {
             MainPageRef.ShowWarningInfoBar("You cannot show children of a child collection.");
