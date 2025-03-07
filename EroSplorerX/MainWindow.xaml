@@ -7,7 +7,6 @@
     xmlns:local="using:EroSplorerX"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:collections="using:EroSplorerX.Data.Collections" 
     xmlns:data="using:EroSplorerX.Data" 
     xmlns:converters="using:EroSplorerX.Converters" 
     xmlns:views="using:EroSplorerX.Views"

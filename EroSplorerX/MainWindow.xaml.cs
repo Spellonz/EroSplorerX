@@ -3,6 +3,8 @@ using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using WinUIEx;
 using WinRT;
+using System.Windows.Forms;
+using EroSplorerX.Data;
 
 namespace EroSplorerX;
 

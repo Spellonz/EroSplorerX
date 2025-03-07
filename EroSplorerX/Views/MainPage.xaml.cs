@@ -9,6 +9,9 @@ public sealed partial class MainPage : UserControl
     public MainPage()
     {
         this.InitializeComponent();
+
+        this.DataContext = new MainPageViewModel();
+
         CollectionListView.MainPageRef = this;
         CollectionListView.MainListRef = ItemPanelView;
     }

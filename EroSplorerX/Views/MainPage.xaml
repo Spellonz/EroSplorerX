@@ -5,8 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EroSplorerX.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:converters="using:EroSplorerX.Converters" xmlns:collections="using:EroSplorerX.Data.Collections" xmlns:data="using:EroSplorerX.Data"
-    mc:Ignorable="d">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:converters="using:EroSplorerX.Converters" 
+    xmlns:data="using:EroSplorerX.Data" 
+    xmlns:components="using:EroSplorerX.Views.Components"
+    mc:Ignorable="d"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
 
     <UserControl.Resources>
         <!-- InfoBar Fade Animation -->
@@ -36,10 +41,19 @@
 
             <!-- Main Content Area -->
             <Grid Margin="10">
-                <local:ItemsPanelView x:Name="ItemPanelView" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Toolbar -->
+                <components:Toolbar Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
+                
+                <!-- Thumbnail view -->
+                <local:ItemsPanelView Grid.Row="1" x:Name="ItemPanelView" />
 
                 <!-- InfoBar (Shown over Main Grid) -->
-                <InfoBar x:Name="MainInfoBar"
+                <InfoBar Grid.Row="1" x:Name="MainInfoBar" 
                     Opacity="1"
                     IsOpen="False"
                     Severity="Error"
